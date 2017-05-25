@@ -1,0 +1,7 @@
+{
+	"insertjob" : "insert into job(job_name, job_description, manager_id, worker_id, status_id, start_date, end_date,completed_date) values(':1', ':2', :3, :4, :5, ':6', ':7',':8')",
+	"inserttask" : "insert into task(task_name, task_description, job_id, task_type_id, status_id, step, start_date, end_date, completed_date) values(':1', ':2', :3, :4, :5, :6, ':7', ':8', ':9')",
+	"insertform" : "insert into form(form_name, form_description, task_id) values (':1', ':2', :3)",
+	"insertquestion" : "insert into question(question, answer, form_id, question_type_id) values (':1', ':2', :3, :4)",
+	"insertquestionoption" : "insert into question_option(question_id, option_name, option_value, is_value_default) values (:1, ':2', ':3', ':4')"
+}

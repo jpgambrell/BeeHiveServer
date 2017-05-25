@@ -1,0 +1,9 @@
+{
+
+	"insertdepartment" : "insert into department(department_name) values(':1')",
+	"insertrole" : "insert into role(role_name, role_description) values(':1', ':2')",
+	"insertuser" : "insert into \"user\"(user_name, first_name, last_name, role_id, department_id, supervisor_id) values (':1', ':2', ':3', :4, :5, :6)",
+	"inserttasktype" : "insert into task_type(type) values(':1')",
+	"insertquestiontype" : "insert into question_type(type) values(':1')",
+	"insertstatustype" : "insert into status_type(\"type\") values(':1')"
+}

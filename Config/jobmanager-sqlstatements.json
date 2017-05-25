@@ -1,0 +1,8 @@
+{
+	"jobsbymanager": "select j.id,j.job_name, j.job_description, (select u.first_name||' '||u.last_name from \"user\" u where u.id = j.manager_id) as manager_name, (select s.type from status_type s where s.id = j.status_id) as status from job j where j.manager_id = :1",
+	"jobtaskbymanager": "select t.id, t.task_name,  (select tt.type from task_type tt where tt.id = t.task_type_id) as task_type, (select s.type from status_type s where s.id = t.status_id) as status from job j, task t where t.job_id = j.id and j.manager_id = :1 order by step asc",
+	"jobsbyworker": "select j.id,j.job_name, j.job_description, (select u.first_name||' '|| u.last_name from \"user\" u where u.id = j.worker_id) as worker_name, (select s.type from status_type s where s.id = j.status_id) as status from job j where j.worker_id =:1",
+	"jobtaskbyworker": "select t.id, t.task_name,  (select tt.type from task_type tt where tt.id = t.task_type_id) as task_type, (select s.type from status_type s where s.id = t.status_id) as status from job j, task t where t.job_id = j.id and j.worker_id = :1 order by step asc",
+	"getformquestions": "select f.id, f.form_name, f.form_description, q.question, q.answer, q.form_id, (select qt.type from question_type qt where qt.id = q.question_type_id) as question_type from form f, question q where q.form_id = f.id and f.id = :1",
+	"getformquestionoption": "select qo.id, qo.option_value, qo.is_value_default from question q, question_option qo where qo.question_id = q.id and q.id = :1"
+}
