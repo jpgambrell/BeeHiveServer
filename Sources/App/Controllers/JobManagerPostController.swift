@@ -4,20 +4,20 @@ import HTTP
 
 
 struct JobPostSQLStatements {
-    var insertjob: String
-    var inserttask: String
-    var insertform: String
-    var insertquestion: String
-    var insertquestionoption: String
+    var insertJob: String
+    var insertTask: String
+    var insertForm: String
+    var insertQuestion: String
+    var insertQuestionOption: String
     
     
     init(drop: Droplet) {
         let configFilename = "jobmanagerpost-sqlstatements"
-        insertjob = drop.config[configFilename, "insertjob"]?.string ?? ""
-        inserttask = drop.config[configFilename, "inserttask"]?.string ?? ""
-        insertform = drop.config[configFilename, "insertform"]?.string ?? ""
-        insertquestion = drop.config[configFilename, "insertquestion"]?.string ?? ""
-        insertquestionoption = drop.config[configFilename, "insertquestionoption"]?.string ?? ""
+        insertJob = drop.config[configFilename, "insertjob"]?.string ?? ""
+        insertTask = drop.config[configFilename, "inserttask"]?.string ?? ""
+        insertForm = drop.config[configFilename, "insertform"]?.string ?? ""
+        insertQuestion = drop.config[configFilename, "insertquestion"]?.string ?? ""
+        insertQuestionOption = drop.config[configFilename, "insertquestionoption"]?.string ?? ""
     }
 }
 
@@ -67,7 +67,7 @@ final class JobManagerPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertjob.replacingOccurrences(of: ":1", with: jobname)
+        let preparedSQL = sql.insertJob.replacingOccurrences(of: ":1", with: jobname)
             .replacingOccurrences(of: ":2", with: jobdescription)
             .replacingOccurrences(of: ":3", with: managerid)
             .replacingOccurrences(of: ":4", with: workerid)
@@ -99,7 +99,7 @@ final class JobManagerPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.inserttask.replacingOccurrences(of: ":1", with: taskname)
+        let preparedSQL = sql.insertTask.replacingOccurrences(of: ":1", with: taskname)
             .replacingOccurrences(of: ":2", with: taskdescription)
             .replacingOccurrences(of: ":3", with: jobid)
             .replacingOccurrences(of: ":4", with: tasktypeid)
@@ -125,7 +125,7 @@ final class JobManagerPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertform.replacingOccurrences(of: ":1", with: formname)
+        let preparedSQL = sql.insertForm.replacingOccurrences(of: ":1", with: formname)
             .replacingOccurrences(of: ":2", with: formdescription)
             .replacingOccurrences(of: ":3", with: taskid)
         let result = try database.execute(sql: preparedSQL)
@@ -144,7 +144,7 @@ final class JobManagerPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertquestion.replacingOccurrences(of: ":1", with: question)
+        let preparedSQL = sql.insertQuestion.replacingOccurrences(of: ":1", with: question)
             .replacingOccurrences(of: ":2", with: answer)
             .replacingOccurrences(of: ":3", with: formid)
             .replacingOccurrences(of: ":4", with: questiontypeid)
@@ -167,7 +167,7 @@ final class JobManagerPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertquestionoption.replacingOccurrences(of: ":1", with: questionid)
+        let preparedSQL = sql.insertQuestionOption.replacingOccurrences(of: ":1", with: questionid)
             .replacingOccurrences(of: ":2", with: optionname)
             .replacingOccurrences(of: ":3", with: optionvalue)
             .replacingOccurrences(of: ":4", with: isvaluedefault)

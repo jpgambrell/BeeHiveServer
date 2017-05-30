@@ -2,95 +2,23 @@ import Vapor
 import HTTP
 import PostgreSQL
 
-enum DBTable  {
-    enum user: String{
-        case id
-        case username
-        case firstname
-        case lastname
-        case roleid
-        case departmentid
-    }
-    enum department: String {
-        case id
-        case departmentname
-    }
-    enum form : String {
-        case id
-        case formname
-        case formdescription
-        case taskid
-    }
-    
-    enum job : String {
-        case id
-        case jobname
-        case jobdescription
-        case managerid
-        case workerid
-        case statusid
-        case startdate
-        case enddate
-        case completedate
-    }
-    enum question : String {
-        case id
-        case question
-        case answer
-        case formid
-        case questiontypeid
-    }
-    enum questionoptions : String {
-        case id
-        case questionid
-        case optionname
-        case optionvalue
-        case isvaluedefault
-    }
-    enum questiontype : String {
-        case id
-        case type
-    }
-    enum role : String {
-        case id
-        case rolename
-        case roledescription
-    }
-    enum status : String{
-        case id
-        case type
-    }
-    enum task : String {
-        case id
-        case taskname
-        case taskdescription
-        case jobid
-        case tasktypeid
-        case statusid
-        case step
-        case startdate
-        case enddate
-        case completiondate
-    }
-    enum tasktype : String{
-        case id
-        case type
-    }
-}
-
 struct user {
     var id : String?
-    var username: String?
-    var firstname: String?
-    var lastname: String?
-    var roleid: String?
-    var departmentid: String?
+    var userName: String?
+    var firstName: String?
+    var lastName: String?
+    var roleId: String?
+    var departmentId: String?
+    var supervisorId: String?
     
     func parseResult(result: Any) {
         
     }
     
 }
+
+
+
 
 final class DatabaseController{
     let host: String
@@ -113,7 +41,6 @@ final class DatabaseController{
        
         guard let result = try? postgreSQLDB.makeConnection().execute(sql) else {
             throw Abort.serverError
-            
         }
         return try JSON(node:result.array)
     }

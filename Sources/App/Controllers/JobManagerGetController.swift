@@ -4,21 +4,21 @@ import HTTP
 
 
 struct JobSQLStatements {
-    var jobsbymanager: String
-    var jobtaskbymanager: String
-    var jobsbyworker: String
-    var jobtaskbyworker: String
-    var formquestions: String
-    var questionoption: String
+    var jobsByManager: String
+    var jobTasksByManager: String
+    var jobsByWorker: String
+    var jobTasksByWorker: String
+    var formQuestions: String
+    var questionOption: String
     
     init(drop: Droplet) {
         let configFilename = "jobmanager-sqlstatements"
-        self.jobsbymanager = drop.config[configFilename, "jobsbymanager"]?.string ?? ""
-        self.jobtaskbymanager = drop.config[configFilename, "jobtaskbymanager"]?.string ?? ""
-        self.jobsbyworker = drop.config[configFilename, "jobsbyworker"]?.string ?? ""
-        self.jobtaskbyworker = drop.config[configFilename, "jobtaskbyworker"]?.string ?? ""
-        self.formquestions = drop.config[configFilename, "getformquestions"]?.string ?? ""
-        self.questionoption = drop.config[configFilename, "getformquestionoption"]?.string ?? ""
+        self.jobsByManager = drop.config[configFilename, "jobsbymanager"]?.string ?? ""
+        self.jobTasksByManager = drop.config[configFilename, "jobtaskbymanager"]?.string ?? ""
+        self.jobsByWorker = drop.config[configFilename, "jobsbyworker"]?.string ?? ""
+        self.jobTasksByWorker = drop.config[configFilename, "jobtaskbyworker"]?.string ?? ""
+        self.formQuestions = drop.config[configFilename, "getformquestions"]?.string ?? ""
+        self.questionOption = drop.config[configFilename, "getformquestionoption"]?.string ?? ""
     }
 }
 
@@ -56,13 +56,13 @@ final class JobManagerGetController{
     //Manager role
     func getJobsByManager(req: Request)  throws -> ResponseRepresentable {
         let managerid = try req.parameters.next(String.self)
-        let preparedSQL = sql.jobsbymanager.replacingOccurrences(of: ":1", with: managerid)
+        let preparedSQL = sql.jobsByManager.replacingOccurrences(of: ":1", with: managerid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }
     func getJobTasksByManager(req: Request)  throws -> ResponseRepresentable {
         let managerid = try req.parameters.next(String.self)
-        let preparedSQL = sql.jobtaskbymanager.replacingOccurrences(of: ":1", with: managerid)
+        let preparedSQL = sql.jobTasksByManager.replacingOccurrences(of: ":1", with: managerid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }
@@ -70,14 +70,14 @@ final class JobManagerGetController{
     //Worker role
     func getJobsByWorker(req: Request)  throws -> ResponseRepresentable {
         let workderid = try req.parameters.next(String.self)
-        let preparedSQL = sql.jobsbyworker.replacingOccurrences(of: ":1", with: workderid)
+        let preparedSQL = sql.jobsByWorker.replacingOccurrences(of: ":1", with: workderid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }
     
     func getJobTasksByWorker(req: Request)  throws -> ResponseRepresentable {
         let workderid = try req.parameters.next(String.self)
-        let preparedSQL = sql.jobtaskbyworker.replacingOccurrences(of: ":1", with: workderid)
+        let preparedSQL = sql.jobTasksByWorker.replacingOccurrences(of: ":1", with: workderid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }
@@ -85,13 +85,13 @@ final class JobManagerGetController{
     //Forms
     func getFormQuestions(req: Request)  throws -> ResponseRepresentable {
         let workderid = try req.parameters.next(String.self)
-        let preparedSQL = sql.formquestions.replacingOccurrences(of: ":1", with: workderid)
+        let preparedSQL = sql.formQuestions.replacingOccurrences(of: ":1", with: workderid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }
     func getFormQuestionOptions(req: Request)  throws -> ResponseRepresentable {
         let workderid = try req.parameters.next(String.self)
-        let preparedSQL = sql.questionoption.replacingOccurrences(of: ":1", with: workderid)
+        let preparedSQL = sql.questionOption.replacingOccurrences(of: ":1", with: workderid)
         let resp = try database.responseFrom(sqlQuery: preparedSQL)
         return try resp.makeResponse()
     }

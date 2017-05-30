@@ -5,22 +5,22 @@ import HTTP
 
 struct HiveSetupPostSQLStatements {
     
-    var insertdepartment: String
-    var insertrole: String
-    var insertuser: String
-    var inserttasktype: String
-    var insertquestiontype: String
-    var insertstatustype: String
+    var insertDepartment: String
+    var insertRole: String
+    var insertUser: String
+    var insertTaskType: String
+    var insertQuestionType: String
+    var insertStatusType: String
     
     init(drop: Droplet) {
         let configFilename = "hiveadminpost-sqlstatements"
         
-        insertdepartment = drop.config[configFilename, "insertdepartment"]?.string ?? ""
-        insertrole = drop.config[configFilename, "insertrole"]?.string ?? ""
-        insertuser = drop.config[configFilename, "insertuser"]?.string ?? ""
-        inserttasktype = drop.config[configFilename, "inserttasktype"]?.string ?? ""
-        insertquestiontype = drop.config[configFilename, "insertquestiontype"]?.string ?? ""
-        insertstatustype = drop.config[configFilename, "insertstatustype"]?.string ?? ""
+        insertDepartment = drop.config[configFilename, "insertdepartment"]?.string ?? ""
+        insertRole = drop.config[configFilename, "insertrole"]?.string ?? ""
+        insertUser = drop.config[configFilename, "insertuser"]?.string ?? ""
+        insertTaskType = drop.config[configFilename, "inserttasktype"]?.string ?? ""
+        insertQuestionType = drop.config[configFilename, "insertquestiontype"]?.string ?? ""
+        insertStatusType = drop.config[configFilename, "insertstatustype"]?.string ?? ""
     }
 }
 
@@ -61,23 +61,23 @@ final class HiveAdminPostController{
     }
     
     func addUser(request: Request) throws -> ResponseRepresentable {
-        guard let username = request.data["username"]?.string,
-            let firstname = request.data["firstname"]?.string,
-            let lastname = request.data["lastname"]?.string,
-            let roleid = request.data["roleid"]?.string,
-            let departmentid = request.data["departmentid"]?.string,
-            let supervisorid = request.data["supervisorid"]?.string
+        guard let userName = request.data["username"]?.string,
+            let firstName = request.data["firstname"]?.string,
+            let lastName = request.data["lastname"]?.string,
+            let roleId = request.data["roleid"]?.string,
+            let departmentId = request.data["departmentid"]?.string,
+            let supervisorId = request.data["supervisorid"]?.string
             
             else {
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertuser.replacingOccurrences(of: ":1", with: username)
-            .replacingOccurrences(of: ":2", with: firstname)
-            .replacingOccurrences(of: ":3", with: lastname)
-            .replacingOccurrences(of: ":4", with: roleid)
-            .replacingOccurrences(of: ":5", with: departmentid)
-            .replacingOccurrences(of: ":6", with: supervisorid)
+        let preparedSQL = sql.insertUser.replacingOccurrences(of: ":1", with: userName)
+            .replacingOccurrences(of: ":2", with: firstName)
+            .replacingOccurrences(of: ":3", with: lastName)
+            .replacingOccurrences(of: ":4", with: roleId)
+            .replacingOccurrences(of: ":5", with: departmentId)
+            .replacingOccurrences(of: ":6", with: supervisorId)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
             throw Abort(.serviceUnavailable, metadata: "User not able to be added")
@@ -94,7 +94,7 @@ final class HiveAdminPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertdepartment.replacingOccurrences(of: ":1", with: department)
+        let preparedSQL = sql.insertDepartment.replacingOccurrences(of: ":1", with: department)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
             throw Abort(.serviceUnavailable, metadata: "Dept not able to be added")
@@ -111,7 +111,7 @@ final class HiveAdminPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.inserttasktype.replacingOccurrences(of: ":1", with: taskType)
+        let preparedSQL = sql.insertTaskType.replacingOccurrences(of: ":1", with: taskType)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
             throw Abort(.serviceUnavailable, metadata: "Task not able to be added")
@@ -128,7 +128,7 @@ final class HiveAdminPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertrole.replacingOccurrences(of: ":1", with: roleName)
+        let preparedSQL = sql.insertRole.replacingOccurrences(of: ":1", with: roleName)
             .replacingOccurrences(of: ":2", with: roleDescription)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
@@ -146,7 +146,7 @@ final class HiveAdminPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertquestiontype.replacingOccurrences(of: ":1", with: questionType)
+        let preparedSQL = sql.insertQuestionType.replacingOccurrences(of: ":1", with: questionType)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
             throw Abort(.serviceUnavailable, metadata: "Dept not able to be added")
@@ -162,7 +162,7 @@ final class HiveAdminPostController{
                 throw Abort.badRequest
         }
         
-        let preparedSQL = sql.insertstatustype.replacingOccurrences(of: ":1", with: statusType)
+        let preparedSQL = sql.insertStatusType.replacingOccurrences(of: ":1", with: statusType)
         
         guard let result = try? database.execute(sql: preparedSQL) else{
             throw Abort(.serviceUnavailable, metadata: "Dept not able to be added")
